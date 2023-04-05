@@ -11,7 +11,10 @@ composer require tbcd/multi-dynamic-messenger
 
 ## Usage
 
-1. First you have to implements a service providing the transport data.
+First you have to implements a service providing the transports data. This service as to implements
+_TransportDataProviderInterface_ interface
+
+In the example below we provide transports data stored with database entities
 
 ```
 # src\Messenger\EntityTransportDataProvider.php
@@ -29,7 +32,10 @@ class EntityTransportDataProvider implements TransportDataProviderInterface
 }
 ```
 
-2. Then you have to configure the transport factory
+Then you have to configure the transport factory :
+
+- Add the tag _messenger.transport_factory_ to the transport factory
+- Bind your _TransportDataProvider_
 
 ```
 # config/services.yaml
@@ -43,3 +49,18 @@ services:
         binds:
             $transportDataProvider: App\Messenger\EntityTransportDataProvider
 ```
+
+Then you have to create the messenger transport
+
+```
+# config/packages/messenger.yaml
+
+framework:
+    messenger:
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            multidynamic:
+                dsn: 'multi-dynamic://'
+```
+
+Finally, start the consumer with the command `php bin/console messenger:consume mytransportname`
