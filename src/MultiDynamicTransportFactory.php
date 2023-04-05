@@ -11,12 +11,12 @@ use Symfony\Contracts\Service\Attribute\Required;
 final class MultiDynamicTransportFactory implements TransportFactoryInterface
 {
 
-    private TransportDataProviderInterface $dsnProvider;
+    private TransportDataProviderInterface $transportDataProvider;
     private iterable $transportFactories = [];
 
-    public function __construct(TransportDataProviderInterface $dsnProvider = new NullTransportDataProvider())
+    public function __construct(TransportDataProviderInterface $transportDataProvider = new NullTransportDataProvider())
     {
-        $this->dsnProvider = $dsnProvider;
+        $this->transportDataProvider = $transportDataProvider;
     }
 
 
@@ -28,7 +28,7 @@ final class MultiDynamicTransportFactory implements TransportFactoryInterface
 
     public function createTransport(string $dsn, array $options, SerializerInterface $serializer): TransportInterface
     {
-        return new MultiDynamicTransport($this->dsnProvider, $this->transportFactories, $serializer);
+        return new MultiDynamicTransport($this->transportDataProvider, $this->transportFactories, $serializer);
     }
 
     public function supports(string $dsn, array $options): bool
