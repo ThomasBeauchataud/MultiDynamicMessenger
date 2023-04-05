@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Messenger;
+namespace TBCD\Messenger\MultiDynamicTransport;
 
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
@@ -12,7 +12,7 @@ final class MultiDynamicTransportFactory implements TransportFactoryInterface
 {
 
     private TransportDataProviderInterface $dsnProvider;
-    private iterable $transportFactories;
+    private iterable $transportFactories = [];
 
     public function __construct(TransportDataProviderInterface $dsnProvider = new NullTransportDataProvider())
     {
@@ -28,7 +28,7 @@ final class MultiDynamicTransportFactory implements TransportFactoryInterface
 
     public function createTransport(string $dsn, array $options, SerializerInterface $serializer): TransportInterface
     {
-        return new MultiDynamicTransport($this->dsnProvider, $serializer, $this->transportFactories);
+        return new MultiDynamicTransport($this->dsnProvider, $this->transportFactories, $serializer);
     }
 
     public function supports(string $dsn, array $options): bool

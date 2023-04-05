@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Messenger;
+namespace TBCD\Messenger\MultiDynamicTransport;
 
 final class NullTransportDataProvider implements TransportDataProviderInterface
 {

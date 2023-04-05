@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Messenger;
+namespace TBCD\Messenger\MultiDynamicTransport;
 
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\TransportException;
+use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
@@ -16,7 +17,7 @@ final class MultiDynamicTransport implements TransportInterface
     private array $transports = [];
     private array $transportDataList = [];
 
-    public function __construct(TransportDataProviderInterface $dsnProvider, SerializerInterface $serializer, iterable $transportFactories)
+    public function __construct(TransportDataProviderInterface $dsnProvider, iterable $transportFactories,  SerializerInterface $serializer = new PhpSerializer())
     {
         $this->dsnProvider = $dsnProvider;
         $this->serializer = $serializer;
