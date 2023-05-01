@@ -26,6 +26,9 @@ final class MultiDynamicTransport implements TransportInterface
     }
 
 
+    /**
+     * @inheritDoc
+     */
     public function get(): iterable
     {
         $this->rebuildTransportList();
@@ -42,6 +45,9 @@ final class MultiDynamicTransport implements TransportInterface
         return $envelopes;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function ack(Envelope $envelope): void
     {
         $multiDynamicStamp = $envelope->last(MultiDynamicStamp::class);
@@ -59,6 +65,9 @@ final class MultiDynamicTransport implements TransportInterface
         $this->transports[$dsn]->ack($envelope);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function reject(Envelope $envelope): void
     {
         $multiDynamicStamp = $envelope->last(MultiDynamicStamp::class);
@@ -76,6 +85,9 @@ final class MultiDynamicTransport implements TransportInterface
         $this->transports[$dsn]->reject($envelope);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function send(Envelope $envelope): Envelope
     {
         $multiDynamicStamp = $envelope->last(MultiDynamicStamp::class);

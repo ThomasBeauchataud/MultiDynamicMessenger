@@ -25,6 +25,11 @@ final class MultiDynamicStamp implements StampInterface, NonSendableStampInterfa
     }
 
 
+    /**
+     * Return the name of the transport used or to use
+     *
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;

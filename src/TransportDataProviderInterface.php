@@ -2,6 +2,9 @@
 
 namespace TBCD\Messenger\MultiDynamicTransport;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+
+#[AutoconfigureTag('tbcd.messenger.transport_data_provider')]
 interface TransportDataProviderInterface
 {
 
